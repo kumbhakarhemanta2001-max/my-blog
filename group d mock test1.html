@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>RRB Group D GK Mock Test</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f2f4f8;
+margin:0;
+}
+header{
+background:#263238;
+color:white;
+padding:15px;
+text-align:center;
+}
+.timer{
+color:#d50000;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+margin:10px;
+}
+.container{
+padding:15px;
+}
+.question{
+background:white;
+padding:15px;
+margin-bottom:15px;
+border-radius:6px;
+box-shadow:0 0 5px #bbb;
+}
+button{
+background:#263238;
+color:white;
+border:none;
+padding:10px 18px;
+font-size:16px;
+border-radius:4px;
+}
+.result{
+background:white;
+padding:15px;
+margin:15px;
+border-radius:6px;
+}
+footer{
+background:#263238;
+color:white;
+text-align:center;
+padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>RRB Group D – GK Mock Test1</h2>
+<p>⏱ Time: 20 second | ❌ Negative Marking: –0.25</p>
+</header>
+
+<div class="timer" id="timer">Time Left: 20 sec</div>
+
+<div class="container" id="quiz"></div>
+
+<div style="text-align:center;">
+<button onclick="submitTest()">Submit Test</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<footer>
+    <p> <a href="group d mock test2.html">group d mock test2</a></p>
+© RRB Group D GK Practice Test
+</footer>
+
+<script>
+let time = 20;
+let interval;
+
+const questions = [
+{q:"ভারতের জাতীয় পশু কোনটি?",o:["সিংহ","বাঘ","হাতি","ঘোড়া"],a:1},
+{q:"ভারতের প্রথম রাষ্ট্রপতি কে?",o:["রাজেন্দ্র প্রসাদ","নেহেরু","সর্বপল্লী রাধাকৃষ্ণন","ইন্দিরা গান্ধী"],a:0},
+{q:"WHO-এর সদর দপ্তর কোথায়?",o:["নিউইয়র্ক","প্যারিস","জেনেভা","রোম"],a:2},
+{q:"ভারতের জাতীয় পাখি কোনটি?",o:["কাক","ময়ূর","তোতা","চিল"],a:1},
+{q:"সংবিধান দিবস কবে পালিত হয়?",o:["২৬ জানুয়ারি","১৫ আগস্ট","২৬ নভেম্বর","২ অক্টোবর"],a:2},
+{q:"ভারতের বৃহত্তম রাজ্য (আয়তনে) কোনটি?",o:["উত্তরপ্রদেশ","মধ্যপ্রদেশ","মহারাষ্ট্র","রাজস্থান"],a:3},
+{q:"ISRO-এর সদর দপ্তর কোথায়?",o:["চেন্নাই","বেঙ্গালুরু","হায়দ্রাবাদ","তিরুবনন্তপুরম"],a:1},
+{q:"ভারতের জাতীয় ফুল কোনটি?",o:["গোলাপ","পদ্ম","সূর্যমুখী","জুঁই"],a:1},
+{q:"গঙ্গা নদীর উৎপত্তি কোথা থেকে?",o:["যমুনোত্রী","গঙ্গোত্রী","আমরকণ্টক","নাসিক"],a:1},
+{q:"ভারতের মুদ্রার নাম কী?",o:["ডলার","টাকা","রুপি","দিনার"],a:2}
+];
+
+function loadQuiz(){
+let html="";
+questions.forEach((item,i)=>{
+html+=`<div class="question">
+<p><b>Q${i+1}. ${item.q}</b></p>`;
+item.o.forEach((op,j)=>{
+html+=`
+<label>
+<input type="radio" name="q${i}" value="${j}"> ${op}
+</label><br>`;
+});
+html+=`</div>`;
+});
+document.getElementById("quiz").innerHTML=html;
+
+interval=setInterval(()=>{
+time--;
+document.getElementById("timer").innerText="Time Left: "+time+" sec";
+if(time<=0){
+clearInterval(interval);
+submitTest();
+}
+},1000);
+}
+
+function submitTest(){
+clearInterval(interval);
+
+let correct=0, wrong=0, unattempted=0;
+
+questions.forEach((item,i)=>{
+let ans=document.querySelector('input[name="q'+i+'"]:checked');
+if(!ans){
+unattempted++;
+}
+else if(parseInt(ans.value)===item.a){
+correct++;
+}
+else{
+wrong++;
+}
+});
+
+let score = (correct*1) - (wrong*0.25);
+
+document.getElementById("result").innerHTML=`
+<h3>📊 Result</h3>
+<p>✔ Correct: ${correct}</p>
+<p>❌ Wrong: ${wrong}</p>
+<p>⭕ Unattempted: ${unattempted}</p>
+<p><b>🏆 Final Score: ${score.toFixed(2)}</b></p>
+`;
+}
+
+loadQuiz();
+</script>
+
+</body>
+</html>

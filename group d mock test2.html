@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>RRB Group D GK Mock Test – 2</title>
+
+<style>
+body{
+font-family:Arial;
+background:#eef2f7;
+margin:0;
+}
+header{
+background:#1a237e;
+color:white;
+padding:15px;
+text-align:center;
+}
+.timer{
+color:#c62828;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+margin:10px;
+}
+.container{
+padding:15px;
+}
+.question{
+background:white;
+padding:15px;
+margin-bottom:15px;
+border-radius:6px;
+box-shadow:0 0 5px #bbb;
+}
+button{
+background:#1a237e;
+color:white;
+border:none;
+padding:10px 18px;
+font-size:16px;
+border-radius:4px;
+}
+.result{
+background:white;
+padding:15px;
+margin:15px;
+border-radius:6px;
+}
+footer{
+background:#1a237e;
+color:white;
+text-align:center;
+padding:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>RRB Group D – GK Mock Test (Set–2)</h2>
+<p>⏱ Time: 20 second | ❌ Negative Marking: –0.25</p>
+</header>
+
+<div class="timer" id="timer">Time Left: 20 sec</div>
+
+<div class="container" id="quiz"></div>
+
+<div style="text-align:center;">
+<button onclick="submitTest()">Submit Test</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<footer><a href="group d mock test1.html">Rrb Group D mock test1</a></footer>
+
+<footer>
+© RRB Group D GK Practice
+</footer>
+
+<script>
+let time = 20;
+let interval;
+
+const questions = [
+{q:"ভারতের জাতীয় ফল কোনটি?",o:["আম","কলা","আপেল","কমলা"],a:0},
+{q:"ভারতের স্বাধীনতা দিবস কবে পালিত হয়?",o:["২৬ জানুয়ারি","১৫ আগস্ট","২ অক্টোবর","২৬ নভেম্বর"],a:1},
+{q:"তাজমহল কোন নদীর তীরে অবস্থিত?",o:["গঙ্গা","যমুনা","নর্মদা","গোদাবরী"],a:1},
+{q:"ভারতের জাতীয় ক্রীড়া (প্রচলিত) কোনটি?",o:["ক্রিকেট","ফুটবল","হকি","কাবাডি"],a:2},
+{q:"UNO-এর সদর দপ্তর কোথায়?",o:["জেনেভা","নিউইয়র্ক","প্যারিস","ভিয়েনা"],a:1},
+{q:"ভারতের প্রথম মহিলা প্রধানমন্ত্রী কে?",o:["প্রতিভা পাটিল","ইন্দিরা গান্ধী","সরোজিনী নাইডু","সুষমা স্বরাজ"],a:1},
+{q:"পৃথিবীর বৃহত্তম মহাদেশ কোনটি?",o:["আফ্রিকা","ইউরোপ","এশিয়া","অস্ট্রেলিয়া"],a:2},
+{q:"ভারতের জাতীয় সঙ্গীত রচয়িতা কে?",o:["রবীন্দ্রনাথ ঠাকুর","বঙ্কিমচন্দ্র","নজরুল ইসলাম","বিদ্যাসাগর"],a:0},
+{q:"ভারতের মুদ্রার প্রতীক কী?",o:["₹","$","€","£"],a:0},
+{q:"বিশ্ব পরিবেশ দিবস কবে পালিত হয়?",o:["৫ জুন","৮ মার্চ","১৬ নভেম্বর","২ অক্টোবর"],a:0}
+];
+
+function loadQuiz(){
+let html="";
+questions.forEach((item,i)=>{
+html+=`<div class="question">
+<p><b>Q${i+1}. ${item.q}</b></p>`;
+item.o.forEach((op,j)=>{
+html+=`
+<label>
+<input type="radio" name="q${i}" value="${j}"> ${op}
+</label><br>`;
+});
+html+=`</div>`;
+});
+document.getElementById("quiz").innerHTML=html;
+
+interval=setInterval(()=>{
+time--;
+document.getElementById("timer").innerText="Time Left: "+time+" sec";
+if(time<=0){
+clearInterval(interval);
+submitTest();
+}
+},1000);
+}
+
+function submitTest(){
+clearInterval(interval);
+
+let correct=0, wrong=0, unattempted=0;
+
+questions.forEach((item,i)=>{
+let ans=document.querySelector('input[name="q'+i+'"]:checked');
+if(!ans){
+unattempted++;
+}
+else if(parseInt(ans.value)===item.a){
+correct++;
+}
+else{
+wrong++;
+}
+});
+
+let score = (correct*1) - (wrong*0.25);
+
+document.getElementById("result").innerHTML=`
+<h3>📊 Result (Set–2)</h3>
+<p>✔ Correct: ${correct}</p>
+<p>❌ Wrong: ${wrong}</p>
+<p>⭕ Unattempted: ${unattempted}</p>
+<p><b>🏆 Final Score: ${score.toFixed(2)}</b></p>
+`;
+}
+
+loadQuiz();
+</script>
+
+</body>
+</html>
